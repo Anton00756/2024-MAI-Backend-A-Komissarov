@@ -1,0 +1,186 @@
+    gunicorn:
+root@d94d91077ae1:/app# ab -c 3 -t 1 http://app_homework_2:8000/
+This is ApacheBench, Version 2.3 <$Revision: 1903618 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking app_homework_2 (be patient)
+Completed 5000 requests
+Finished 9390 requests
+
+
+Server Software:        gunicorn
+Server Hostname:        app_homework_2
+Server Port:            8000
+
+Document Path:          /
+Document Length:        14 bytes
+
+Concurrency Level:      3
+Time taken for tests:   1.000 seconds
+Complete requests:      9390
+Failed requests:        0
+Total transferred:      1436670 bytes
+HTML transferred:       131460 bytes
+Requests per second:    9389.42 [#/sec] (mean)
+Time per request:       0.320 [ms] (mean)
+Time per request:       0.107 [ms] (mean, across all concurrent requests)
+Transfer rate:          1402.91 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       1
+Processing:     0    0   0.1      0       2
+Waiting:        0    0   0.1      0       2
+Total:          0    0   0.1      0       2
+
+Percentage of the requests served within a certain time (ms)
+  50%      0
+  66%      0
+  75%      0
+  80%      0
+  90%      0
+  95%      0
+  98%      1
+  99%      1
+ 100%      2 (longest request)
+
+    gunicorn через проксирование nginx:
+root@d94d91077ae1:/app# ab -c 3 -t 1 http://nginx/app
+This is ApacheBench, Version 2.3 <$Revision: 1903618 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking nginx (be patient)
+Finished 4932 requests
+
+
+Server Software:        nginx/1.25.4
+Server Hostname:        nginx
+Server Port:            80
+
+Document Path:          /app
+Document Length:        14 bytes
+
+Concurrency Level:      3
+Time taken for tests:   1.000 seconds
+Complete requests:      4932
+Failed requests:        0
+Total transferred:      774324 bytes
+HTML transferred:       69048 bytes
+Requests per second:    4931.56 [#/sec] (mean)
+Time per request:       0.608 [ms] (mean)
+Time per request:       0.203 [ms] (mean, across all concurrent requests)
+Transfer rate:          756.11 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       1
+Processing:     0    1   0.1      1       1
+Waiting:        0    0   0.1      0       1
+Total:          0    1   0.1      1       2
+
+Percentage of the requests served within a certain time (ms)
+  50%      1
+  66%      1
+  75%      1
+  80%      1
+  90%      1
+  95%      1
+  98%      1
+  99%      1
+ 100%      2 (longest request)
+
+    nginx:
+root@d94d91077ae1:/app# ab -c 3 -t 1 http://nginx/
+This is ApacheBench, Version 2.3 <$Revision: 1903618 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking nginx (be patient)
+Finished 1678 requests
+
+
+Server Software:        nginx/1.25.4
+Server Hostname:        nginx
+Server Port:            80
+
+Document Path:          /
+Document Length:        213 bytes
+
+Concurrency Level:      3
+Time taken for tests:   1.000 seconds
+Complete requests:      1678
+Failed requests:        0
+Total transferred:      747155 bytes
+HTML transferred:       357627 bytes
+Requests per second:    1677.39 [#/sec] (mean)
+Time per request:       1.788 [ms] (mean)
+Time per request:       0.596 [ms] (mean, across all concurrent requests)
+Transfer rate:          729.38 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:     1    2   0.5      2       4
+Waiting:        1    1   0.6      2       4
+Total:          1    2   0.5      2       4
+WARNING: The median and mean for the waiting time are not within a normal deviation
+        These results are probably not that reliable.
+
+Percentage of the requests served within a certain time (ms)
+  50%      2
+  66%      2
+  75%      2
+  80%      2
+  90%      2
+  95%      2
+  98%      3
+  99%      3
+ 100%      4 (longest request)
+
+    nginx статический файл:
+root@d94d91077ae1:/app# ab -c 3 -t 1 http://nginx/image
+This is ApacheBench, Version 2.3 <$Revision: 1903618 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking nginx (be patient)
+Finished 227 requests
+
+
+Server Software:        nginx/1.25.4
+Server Hostname:        nginx
+Server Port:            80
+
+Document Path:          /image
+Document Length:        1368872 bytes
+
+Concurrency Level:      3
+Time taken for tests:   1.005 seconds
+Complete requests:      227
+Failed requests:        0
+Total transferred:      312107804 bytes
+HTML transferred:       312052856 bytes
+Requests per second:    225.98 [#/sec] (mean)
+Time per request:       13.275 [ms] (mean)
+Time per request:       4.425 [ms] (mean, across all concurrent requests)
+Transfer rate:          303425.54 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:     8   13   4.2     16      26
+Waiting:        1    5   4.2      6      18
+Total:          8   13   4.2     16      26
+
+Percentage of the requests served within a certain time (ms)
+  50%     16
+  66%     17
+  75%     17
+  80%     17
+  90%     18
+  95%     18
+  98%     18
+  99%     19
+ 100%     26 (longest request)
