@@ -1,4 +1,4 @@
-task=2
+task=3
 
 start: stop
 	@docker-compose -f=homework_$(task)/docker-compose.yaml -p homework_$(task) up -d
