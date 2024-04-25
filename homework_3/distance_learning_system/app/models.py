@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Course(models.Model):
-    uid = models.UUIDField(verbose_name='ID курса')
+    uid = models.UUIDField(verbose_name='ID курса', primary_key=True)
     name = models.CharField(max_length=100, verbose_name='Название курса')
     description = models.TextField(verbose_name='Описание курса')
     paid = models.BooleanField(verbose_name='Платный курс')
@@ -16,7 +16,7 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
-    uid = models.UUIDField(verbose_name='ID занятия')
+    uid = models.UUIDField(verbose_name='ID занятия', primary_key=True)
     theme = models.CharField(max_length=150, verbose_name='Тема занятия')
     material = models.TextField(verbose_name='Материал занятия')
     time = models.IntegerField(verbose_name='Продолжительность занятия (мин)')
