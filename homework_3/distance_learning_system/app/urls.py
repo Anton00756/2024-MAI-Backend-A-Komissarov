@@ -19,5 +19,9 @@ from . import views
 urlpatterns = [
     path('courses', views.all_courses, name='courses'),
     path('course/<uuid:course_id>', views.course, name='course'),
+    path('course/search', views.search_course, name='search_course'),
+    path('course/create', views.create_course, name='create_course'),
+    path('lessons', views.all_lessons, name='lessons'),
     path('lesson/<uuid:lesson_id>', views.lesson, name='lesson'),
+    path('lesson/create', views.create_lesson, name='create_lesson'),
 ]
